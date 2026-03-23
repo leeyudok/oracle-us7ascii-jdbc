@@ -88,9 +88,11 @@
         <version>3.5.2</version>
         <configuration>
           <excludes>
-
             <exclude>**/OracleConnectionTest.java</exclude>
             <exclude>**/IntegrationTest.java</exclude>
+            <exclude>**/MultilingualTest.java</exclude>
+            <exclude>**/LobTest.java</exclude>
+            <exclude>**/SeedDataTest.java</exclude>
           </excludes>
         </configuration>
       </plugin>

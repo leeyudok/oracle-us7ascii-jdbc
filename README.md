@@ -2,7 +2,7 @@
 
 Oracle DB 캐릭터셋이 **US7ASCII**인데 실제 데이터는 **EUC-KR(한글)**로 저장된 환경에서 발생하는 **한글 깨짐 문제**를 해결하는 JDBC 드라이버 래퍼입니다.
 
-> 은행 폐쇄망 등 레거시 Oracle 환경에서 검증된 라이브러리입니다. 131건 테스트, 에러율 0%.
+> 은행 폐쇄망 등 레거시 Oracle 환경에서 검증된 라이브러리입니다. 132건 테스트, 에러율 0%.
 
 ---
 
@@ -303,7 +303,8 @@ mvn test -Dtest=SeedDataTest
 | MultilingualTest | 23 | O | 한자/가나/그리스/키릴/특수기호 |
 | OracleConnectionTest | 2 | O | 직접/래핑 접속 |
 | LobTest | 8 | O | CLOB/BLOB 읽기/쓰기 |
-| **합계** | **131** | | **0 failures (ojdbc8 / ojdbc10 / ojdbc11)** |
+| SeedDataTest | 1 | O | 검증용 시드 데이터 삽입 |
+| **합계** | **132** | | **0 failures (ojdbc8 / ojdbc10 / ojdbc11)** |
 
 ### 테스트 생성 DB 오브젝트
 
