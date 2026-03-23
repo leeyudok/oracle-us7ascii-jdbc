@@ -1,0 +1,32 @@
+# Maven
+target/
+
+# IDE
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+.vscode/
+
+# Java
+*.class
+*.log
+
+# Archive
+*.jar
+
+# Build output
+dist/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 테스트 DB 접속정보 (절대 커밋 금지)
+test-db.properties
+
+# AI 에이전트 설정
+AGENTS.md
+CLAUDE.md
+CURRENT_TASK_*.md
