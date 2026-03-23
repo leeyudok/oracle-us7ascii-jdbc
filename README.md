@@ -94,28 +94,57 @@ Maven 프로젝트라면:
                     이것만 추가
 ```
 
-### 4단계: 코드 변경 — 없음!
+### 4단계: 코드 변경 — 없음
+
+기존 Java 코드를 한 글자도 바꿀 필요 없습니다. URL만 변경하면 됩니다.
 
 ```java
 // 드라이버 등록 (Java 8 이상에서는 ServiceLoader로 자동 등록되어 생략 가능)
 Class.forName("kr.doksam.oracle.us7ascii.CharsetDriver");
 
-// 기존 코드 그대로 사용
+// 기존 코드 그대로 사용 — URL만 us7ascii: 추가
 String url = "jdbc:oracle:us7ascii:thin:@localhost:1521:XE";
 Connection conn = DriverManager.getConnection(url, "user", "password");
 
-PreparedStatement pstmt = conn.prepareStatement("INSERT INTO t (col) VALUES (?)");
-pstmt.setString(1, "한글테스트");  // ← 기존 코드 그대로! 내부에서 자동 변환
+// INSERT — 내부에서 setAsciiStream으로 자동 우회
+PreparedStatement pstmt = conn.prepareStatement(
+    "INSERT INTO charset_test (id, name, memo) VALUES (?, ?, ?)"
+);
+pstmt.setInt(1, 1);
+pstmt.setString(2, "홍길동");       // ← 기존 코드 그대로!
+pstmt.setString(3, "한글 메모");
 pstmt.executeUpdate();
 
-ResultSet rs = stmt.executeQuery("SELECT col FROM t");
+// SELECT — getString()이 자동으로 EUC-KR 복원
+Statement stmt = conn.createStatement();
+ResultSet rs = stmt.executeQuery("SELECT id, name, memo FROM charset_test");
 while (rs.next()) {
-    String val = rs.getString("col");  // ← 자동으로 EUC-KR 복원
-    System.out.println(val);           // "한글테스트" ✓
+    int id = rs.getInt("id");
+    String name = rs.getString("name");   // "홍길동" ✓
+    String memo = rs.getString("memo");   // "한글 메모" ✓
 }
+
+// Statement에 직접 한글 리터럴도 OK — 자동 UTL_RAW 변환
+stmt.executeUpdate("INSERT INTO charset_test (id, name) VALUES (2, '김철수')");
+
+// CallableStatement (Stored Procedure)
+CallableStatement cstmt = conn.prepareCall("{call my_proc(?, ?)}");
+cstmt.setString(1, "한글입력");              // EUC-KR raw bytes 전송
+cstmt.registerOutParameter(2, Types.VARCHAR);
+cstmt.execute();
+String result = cstmt.getString(2);          // EUC-KR 자동 복원
 ```
 
-> **핵심**: 기존 Java 코드는 한 글자도 바꿀 필요 없습니다. URL만 변경하세요.
+#### 테스트 테이블 DDL (예시)
+
+```sql
+CREATE TABLE charset_test (
+    id         NUMBER PRIMARY KEY,
+    name       VARCHAR2(200),
+    memo       VARCHAR2(4000),
+    created_at DATE DEFAULT SYSDATE
+);
+```
 
 ---
 
