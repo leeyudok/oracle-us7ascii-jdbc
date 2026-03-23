@@ -410,37 +410,4 @@ public class CharsetPreparedStatement extends CharsetStatement implements Prepar
         return delegatePs.getParameterMetaData();
     }
 
-    // ── JDBC 4.2 (Java 8) 추가 메서드 ────────────────────────────────
-
-    @Override
-    public long executeLargeUpdate() throws SQLException {
-        return delegatePs.executeLargeUpdate();
-    }
-
-    /**
-     * SQLType 기반 파라미터 설정. String인 경우 {@link CharsetUtils#toDb(String)}로 변환한다.
-     *
-     * @param parameterIndex 파라미터 인덱스
-     * @param x 바인딩할 값
-     * @param targetSqlType SQL 타입 (java.sql.SQLType)
-     * @throws SQLException 설정 실패 시
-     */
-    @Override
-    public void setObject(int parameterIndex, Object x, java.sql.SQLType targetSqlType) throws SQLException {
-        if (x instanceof String) {
-            delegatePs.setObject(parameterIndex, CharsetUtils.toDb((String) x), targetSqlType);
-        } else {
-            delegatePs.setObject(parameterIndex, x, targetSqlType);
-        }
-    }
-
-    @Override
-    public void setObject(int parameterIndex, Object x, java.sql.SQLType targetSqlType, int scaleOrLength)
-            throws SQLException {
-        if (x instanceof String) {
-            delegatePs.setObject(parameterIndex, CharsetUtils.toDb((String) x), targetSqlType, scaleOrLength);
-        } else {
-            delegatePs.setObject(parameterIndex, x, targetSqlType, scaleOrLength);
-        }
-    }
 }

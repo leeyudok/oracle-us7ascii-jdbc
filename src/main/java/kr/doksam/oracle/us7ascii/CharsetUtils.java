@@ -1,7 +1,6 @@
 package kr.doksam.oracle.us7ascii;
 
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 
 /**
  * US7ASCII Oracle DB와 EUC-KR 애플리케이션 간의 문자열 인코딩 변환 유틸리티.
@@ -22,7 +21,7 @@ import java.nio.charset.StandardCharsets;
 public class CharsetUtils {
 
     /** ISO-8859-1 캐릭터셋 (JVM 필수 — 항상 존재) */
-    private static final Charset ISO_8859_1 = StandardCharsets.ISO_8859_1;
+    private static final Charset ISO_8859_1 = Charset.forName("ISO-8859-1");
 
     /** EUC-KR 캐릭터셋 (클래스 로딩 시 검증 — 미존재 시 즉시 실패) */
     private static final Charset EUC_KR;

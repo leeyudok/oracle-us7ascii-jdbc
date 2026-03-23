@@ -1070,44 +1070,4 @@ public class CharsetResultSet implements ResultSet {
         return delegate.isWrapperFor(iface);
     }
 
-    // ── JDBC 4.2 (Java 8) 추가 메서드 ────────────────────────────────
-
-    /** SQLType 기반 updateObject. String인 경우 {@link CharsetUtils#toDb(String)}로 변환한다. */
-    @Override
-    public void updateObject(int columnIndex, Object x, java.sql.SQLType targetSqlType) throws SQLException {
-        if (x instanceof String) {
-            delegate.updateObject(columnIndex, CharsetUtils.toDb((String) x), targetSqlType);
-        } else {
-            delegate.updateObject(columnIndex, x, targetSqlType);
-        }
-    }
-
-    @Override
-    public void updateObject(int columnIndex, Object x, java.sql.SQLType targetSqlType, int scaleOrLength)
-            throws SQLException {
-        if (x instanceof String) {
-            delegate.updateObject(columnIndex, CharsetUtils.toDb((String) x), targetSqlType, scaleOrLength);
-        } else {
-            delegate.updateObject(columnIndex, x, targetSqlType, scaleOrLength);
-        }
-    }
-
-    @Override
-    public void updateObject(String columnLabel, Object x, java.sql.SQLType targetSqlType) throws SQLException {
-        if (x instanceof String) {
-            delegate.updateObject(columnLabel, CharsetUtils.toDb((String) x), targetSqlType);
-        } else {
-            delegate.updateObject(columnLabel, x, targetSqlType);
-        }
-    }
-
-    @Override
-    public void updateObject(String columnLabel, Object x, java.sql.SQLType targetSqlType, int scaleOrLength)
-            throws SQLException {
-        if (x instanceof String) {
-            delegate.updateObject(columnLabel, CharsetUtils.toDb((String) x), targetSqlType, scaleOrLength);
-        } else {
-            delegate.updateObject(columnLabel, x, targetSqlType, scaleOrLength);
-        }
-    }
 }
