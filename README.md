@@ -60,7 +60,7 @@ git clone https://github.com/leeyudok/oracle-us7ascii-jdbc.git
 cd oracle-us7ascii-jdbc
 mvn clean package
 
-# 산출물: target/oracle-us7ascii-jdbc-0.0.2.jar
+# 산출물: target/oracle-us7ascii-jdbc-0.0.3.jar
 ```
 
 ### 2단계: classpath에 추가
@@ -69,7 +69,7 @@ mvn clean package
 
 ```
 lib/
-├── oracle-us7ascii-jdbc-0.0.2.jar   ← 이 래퍼
+├── oracle-us7ascii-jdbc-0.0.3.jar   ← 이 래퍼
 └── ojdbc8-23.26.1.0.0.jar           ← Oracle JDBC (기존에 쓰던 것)
 ```
 
@@ -79,9 +79,9 @@ Maven 프로젝트라면:
 <dependency>
   <groupId>kr.doksam</groupId>
   <artifactId>oracle-us7ascii-jdbc</artifactId>
-  <version>0.0.2</version>
+  <version>0.0.3</version>
   <scope>system</scope>
-  <systemPath>${project.basedir}/lib/oracle-us7ascii-jdbc-0.0.2.jar</systemPath>
+  <systemPath>${project.basedir}/lib/oracle-us7ascii-jdbc-0.0.3.jar</systemPath>
 </dependency>
 ```
 
@@ -258,9 +258,9 @@ mvn clean package -Pojdbc11    # ojdbc11로 전환
 산출물 (3개 JAR):
 
 ```text
-target/oracle-us7ascii-jdbc-0.0.2.jar          # 메인 라이브러리
-target/oracle-us7ascii-jdbc-0.0.2-sources.jar   # 소스
-target/oracle-us7ascii-jdbc-0.0.2-javadoc.jar   # JavaDoc
+target/oracle-us7ascii-jdbc-0.0.3.jar          # 메인 라이브러리
+target/oracle-us7ascii-jdbc-0.0.3-sources.jar   # 소스
+target/oracle-us7ascii-jdbc-0.0.3-javadoc.jar   # JavaDoc
 ```
 
 > 래퍼 JAR 자체는 동일합니다. 프로파일은 컴파일/테스트 시 classpath에 올릴 Oracle JDBC 드라이버를 선택합니다.
@@ -321,7 +321,7 @@ mvn test -Dtest=CharsetUtilsTest,CharsetDriverTest,CharsetWrapperTest,OracleConn
 mvn test -Dtest=SeedDataTest
 ```
 
-### 테스트 현황 (v0.0.2)
+### 테스트 현황 (v0.0.3)
 
 | 테스트 | 건수 | Oracle 필요 | 설명 |
 | --- | :---: | :---: | --- |
@@ -383,7 +383,7 @@ DBeaver에서도 이 래퍼를 사용하여 한글을 정상적으로 조회할 
 
 **라이브러리** 탭에서 **2개 JAR 모두** 추가합니다:
 
-- `oracle-us7ascii-jdbc-0.0.2.jar` (래퍼)
+- `oracle-us7ascii-jdbc-0.0.3.jar` (래퍼)
 - `ojdbc8-23.26.1.0.0.jar` (Oracle JDBC)
 
 > 래퍼 JAR만 넣으면 `ClassNotFoundException: oracle.jdbc.OracleDriver` 에러가 발생합니다. 반드시 2개 모두 추가하세요.
@@ -423,7 +423,7 @@ oracle-us7ascii-jdbc/
 
 ---
 
-## 보안 감사 이력 (v0.0.2)
+## 보안 감사 이력 (v0.0.3)
 
 은행 폐쇄망 배포를 위한 코드 보안 감사에서 발견/수정된 항목:
 
